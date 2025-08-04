@@ -428,7 +428,7 @@ class FalkorDBStorage(BaseGraphStorage):
         workspace_label = self._get_workspace_label()
         query = f"""
         UNWIND $pairs AS pair
-        MATCH (start:`{workspace_label}` {{entity_id: pair.src}})-[r:DIRECTED]-(end:`{workspace_label}` {{entity_id: pair.tgt}})
+        MATCH (start:`{workspace_label}` {{entity_id: pair.src}})-[r:RELATED]-(end:`{workspace_label}` {{entity_id: pair.tgt}})
         RETURN pair.src AS src_id, pair.tgt AS tgt_id, collect(properties(r)) AS edges
         """
         result = await self._run_query(query, {"pairs": pairs})
@@ -659,7 +659,7 @@ class FalkorDBStorage(BaseGraphStorage):
             MATCH (source:`{workspace_label}` {{entity_id: $source_entity_id}})
             WITH source
             MATCH (target:`{workspace_label}` {{entity_id: $target_entity_id}})
-            MERGE (source)-[r:DIRECTED]-(target)
+            MERGE (source)-[r:RELATED]-(target)
             SET r += $properties
             RETURN r, source, target
             """
