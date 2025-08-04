@@ -206,7 +206,7 @@ class FalkorDBStorage(BaseGraphStorage):
             query = f"MATCH (n:`{workspace_label}` {{entity_id: $entity_id}}) RETURN n"
             result = await self._run_query(query, {"entity_id": node_id})
             
-            if result.result_set:
+            if result.result_set and len(result.result_set) > 0:
                 node = result.result_set[0][0]  # Get the first node
                 # Convert FalkorDB node to dictionary
                 node_dict = {key: value for key, value in node.properties.items()}
@@ -235,7 +235,7 @@ class FalkorDBStorage(BaseGraphStorage):
         result = await self._run_query(query, {"node_ids": node_ids})
         nodes = {}
         
-        if result.result_set:
+        if result.result_set and len(result.result_set) > 0:
             for record in result.result_set:
                 entity_id = record[0]
                 node = record[1]
@@ -268,7 +268,7 @@ class FalkorDBStorage(BaseGraphStorage):
             """
             result = await self._run_query(query, {"entity_id": node_id})
             
-            if result.result_set:
+            if result.result_set and len(result.result_set) > 0:
                 degree = result.result_set[0][0]
                 return degree
             else:
@@ -298,7 +298,7 @@ class FalkorDBStorage(BaseGraphStorage):
         result = await self._run_query(query, {"node_ids": node_ids})
         degrees = {}
         
-        if result.result_set:
+        if result.result_set and len(result.result_set) > 0:
             for record in result.result_set:
                 entity_id = record[0]
                 degrees[entity_id] = record[1]
@@ -384,7 +384,7 @@ class FalkorDBStorage(BaseGraphStorage):
                 "target_entity_id": target_node_id,
             })
             
-            if result.result_set:
+            if result.result_set and len(result.result_set) > 0:
                 edge_result = result.result_set[0][0]  # Get properties dict
                 
                 # Ensure required keys exist with defaults
