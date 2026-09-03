@@ -16,7 +16,7 @@
     "preview-no-bun": "vite preview"
   },
   "dependencies": {
-    "@faker-js/faker": "^9.5.0",
+    "@faker-js/faker": "^10.6.0",
     "@radix-ui/react-alert-dialog": "^1.1.6",
     "@radix-ui/react-checkbox": "^1.1.4",
     "@radix-ui/react-dialog": "^1.1.6",
